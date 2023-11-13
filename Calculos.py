@@ -1,14 +1,15 @@
 '''
-Proyecto Final 
-Matemática Discreta
-Sistema RSA
+Universidad del Valle de Guatemala
+Proyecto Final - Matemática Discreta
+Sistema de encriptación RSA
+ ---> Cálculos
 
 Fabiola Contreras 22787
 María José Villafuerte 22129
 '''
 
-def encriptado():
+def encriptado(M, P, Q, E):
     return 0
 
-def desencriptado():
+def desencriptado(C, E, N):
     return 0
