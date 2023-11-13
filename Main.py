@@ -35,19 +35,20 @@ def encriptar():
     tk.Entry(textvariable=Mensaje).place(x=10,y=80)
 
     tk.Label(Main_page, text = "Ingresa el valor de p", font="Times 8").place(x=10, y=100)
-    numP = tk.DoubleVar()
+    numP = tk.IntVar()
     tk.Entry(textvariable=numP).place(x=10,y=120)
 
     tk.Label(Main_page, text = "Ingresa el valor de q", font="Times 8").place(x=10, y=140)
-    numQ = tk.DoubleVar()
+    numQ = tk.IntVar()
     tk.Entry(textvariable=numQ).place(x=10,y=160)
 
     tk.Label(Main_page, text = "Ingresa el valor de e --> Recuerda que e>1", font="Times 8").place(x=10, y=180)
-    numE = tk.DoubleVar()
+    numE = tk.IntVar()
     tk.Entry(textvariable=numE).place(x=10,y=200)
 
     def Call_calculation():
-        Calculos.encriptado()
+        mensajeObtenido = Calculos.encriptado(Mensaje.get(), numP.get(), numQ.get(), numE.get())
+        show_Results(Mensaje.get(), mensajeObtenido)
 
     Boton_listo = tk.Button(text ="Listo", command= Call_calculation)
     Boton_listo.place(x=15, y=230)
@@ -59,26 +60,35 @@ def desencriptar():
     clear_frame()
     tk.Label(Main_page, text = " \nDesencriptar mensaje", font="Times 20").pack()
 
-    tk.Label(Main_page, text = "Ingresa el mensaje a desencriptar", font="Times 8").place(x=10, y=60)
+    tk.Label(Main_page, text = "Ingresa el código de mensaje a desencriptar", font="Times 8").place(x=10, y=60)
     Mensaje = tk.StringVar()
     tk.Entry(textvariable=Mensaje).place(x=10,y=80)
 
     tk.Label(Main_page, text = "Ingresa el valor de e (para la llave pública)", font="Times 8").place(x=10, y=100)
-    numE = tk.DoubleVar()
+    numE = tk.IntVar()
     tk.Entry(textvariable=numE).place(x=10,y=120)
 
     tk.Label(Main_page, text = "Ingresa el valor de n (para la llave pública)", font="Times 8").place(x=10, y=140)
-    numN = tk.DoubleVar()
+    numN = tk.IntVar()
     tk.Entry(textvariable=numN).place(x=10,y=160)
 
     def Call_calculation():
-        Calculos.desencriptado()
+        mensajeObtenido, d = Calculos.desencriptado(Mensaje.get(), numE.get(), numN.get())
+        show_Results(Mensaje.get(), mensajeObtenido, d)
 
     Boton_listo = tk.Button(text ="Listo", command= Call_calculation)
     Boton_listo.place(x=15, y=190)
 
     Boton_atras = tk.Button(text ="Regresar", command= main)
     Boton_atras.place(x=105, y=190)
+
+def show_Results(mensajeO, mensajeR, llave):
+    clear_frame()
+    tk.Label(Main_page, text = " \nResultado del proceso:", font="Times 20").pack()
+    tk.Label(Main_page, text = " \nMensaje original: " + mensajeO, font="Times 18").pack()
+    tk.Label(Main_page, text = " \nMensaje obtenido: " + str(mensajeR), font="Times 18").pack()
+    tk.Label(Main_page, text = " \nLlave privada: " + str(llave), font="Times 15").pack()
+    tk.Button(text ="Menu inicial", command= main).pack()
 
 Main_page = tk.Tk()
 Main_page.geometry("550x450")
