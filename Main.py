@@ -48,7 +48,8 @@ def encriptar():
 
     def Call_calculation():
         mensajeObtenido = Calculos.encriptado(Mensaje.get(), numP.get(), numQ.get(), numE.get())
-        show_Results(Mensaje.get(), mensajeObtenido)
+        #mensajeObtenido1 = Calculos.encriptado("viva mixco", 53,67,85)
+        show_Results(Mensaje.get(), mensajeObtenido,numE.get())
 
     Boton_listo = tk.Button(text ="Listo", command= Call_calculation)
     Boton_listo.place(x=15, y=230)

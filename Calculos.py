@@ -8,13 +8,65 @@ Fabiola Contreras 22787
 María José Villafuerte 22129
 '''
 
-def encriptado(M, P, Q, E):
-    alfabeto = 'abcdefghijklmnopqrstuvwxyz'
-    diccionario_letras = {letra: indice for indice, letra in enumerate(alfabeto)}
+def main():
+    encriptado("viva mixco", 53,67,85)
 
-    return 0
+
+def encriptado(mensaje, P, Q, elemento_llave_E):
+    #Limpa el mensaje para que no tenga espacios ni mayusculas
+    mensaje = ''.join(mensaje.split())
+    mensaje = mensaje.lower()
+
+    #Realizar el diccionario
+    alfabeto = 'klmnopqrstuvwxyz'
+    diccionario_letras_finales = {letra: indice+10 for indice, letra in enumerate(alfabeto)}
+    alfabeto = 'abcdefghij'
+    diccionario_letras = {letra: str(indice).zfill(2) for indice, letra in enumerate(alfabeto)}
+    diccionario_letras.update(diccionario_letras_finales)
+
+    #Crear los elementos d ela llace, al igual que los elementos que nos sirven para encriptar
+    elemento_llave_n = P*Q
+    phi = (P - 1) * (Q - 1)
+
+    mensaje_encriptado = ""
+
+    #Si el módulo entre el e y phi no es uno, no podemos realizar el trabajo 
+    if calcular_mcd(elemento_llave_E,phi)==1:
+
+        #Separamos el mensaje entre grupos de 2
+        bloques = [mensaje[i:i+2] for i in range(0, len(mensaje), 2)]
+        
+        #Por cada grupo de dos vamos a hacer la encriptación
+        for bloque in bloques:
+            primera_letra = bloque[0]
+            try:
+                segunda_letra = bloque[1]
+            except:
+                #En caso de que no exista segunda letra se va a agregar h como cracter falso
+                segunda_letra = 'h'
+            indice_de_string = diccionario_letras[str(primera_letra)]
+            indice_de_string_1 = diccionario_letras[str(segunda_letra)]
+            letras_cifradas_sin_llave = str(indice_de_string) + str(indice_de_string_1)
+            letras_cifradas_con_llave =  pow(int(letras_cifradas_sin_llave),elemento_llave_E)%elemento_llave_n
+
+            #Para que la encriptación sea de como 0483 y no de forma erronea como 483 
+            if len(str(letras_cifradas_con_llave)) < 4:
+                letras_cifradas_con_llave = '{:04d}'.format(letras_cifradas_con_llave)
+            mensaje_encriptado += str(letras_cifradas_con_llave) +" "
+            #mensaje_encriptado += letras_cifradas_sin_llave
+            
+    else:
+        mensaje_encriptado = "ERROR e debe de ser distinto"
+    return mensaje_encriptado
+
+
+def calcular_mcd(a, b):
+    while b:
+        a, b = b, a % b
+    return abs(a)
 
 def desencriptado(C, E, N):
+    C = ''.join(C.split())
     alfabeto = 'abcdefghijklmnopqrstuvwxyz'
     diccionario_letras = {letra: indice for indice, letra in enumerate(alfabeto)}
 
