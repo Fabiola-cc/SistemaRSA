@@ -89,7 +89,7 @@ def show_Results(mensajeO, mensajeR, llave, modo):
     tk.Label(Main_page, text = " \nMensaje obtenido: " + str(mensajeR), font="Times 18").pack()
     if modo == 2:
         tk.Label(Main_page, text = " \nLlave privada: " + str(llave), font="Times 15").pack()
-    tk.Button(text ="Menu inicial", command= main).place(x=105, y=290)
+    tk.Button(text ="Menu inicial", command= main).place(x=275, y=290)
 
 Main_page = tk.Tk()
 Main_page.geometry("550x450")
