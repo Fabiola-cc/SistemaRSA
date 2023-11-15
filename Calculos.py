@@ -7,11 +7,6 @@ Sistema de encriptación RSA
 Fabiola Contreras 22787
 María José Villafuerte 22129
 '''
-
-def main():
-    encriptado("viva mixco", 53,67,85)
-
-
 def encriptado(mensaje, P, Q, elemento_llave_E):
     #Limpa el mensaje para que no tenga espacios ni mayusculas
     mensaje = ''.join(mensaje.split())
@@ -59,7 +54,6 @@ def encriptado(mensaje, P, Q, elemento_llave_E):
         mensaje_encriptado = "ERROR e debe de ser distinto"
     return mensaje_encriptado
 
-
 def calcular_mcd(a, b):
     while b:
         a, b = b, a % b
@@ -81,10 +75,13 @@ def desencriptado(C, E, N):
     #Encontrar las letras decodificadas
     bloques = [C[i:i+4] for i in range(0, len(C), 4)]
     decode = ""
-    for bloque in bloques:
-        decode += str(mod_exponent(int(bloque), d, N))
+    for bloque in bloques: #Decodificar numericamente por bloques de 4 dígitos
+        Block_code = str(mod_exponent(int(bloque), d, N))
+        if len(Block_code) == 3:
+            Block_code = "0" + Block_code
+        decode += Block_code
 
-    letras = [decode[i:i+2] for i in range(0, len(decode), 2)]
+    letras = [decode[i:i+2] for i in range(0, len(decode), 2)] #Dividir letras como segmentos de 2 dígitos
     for val in letras:
         for letra, valor in diccionario_letras.items():
             if valor == int(val):

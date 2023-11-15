@@ -48,8 +48,7 @@ def encriptar():
 
     def Call_calculation():
         mensajeObtenido = Calculos.encriptado(Mensaje.get(), numP.get(), numQ.get(), numE.get())
-        #mensajeObtenido1 = Calculos.encriptado("viva mixco", 53,67,85)
-        show_Results(Mensaje.get(), mensajeObtenido,numE.get())
+        show_Results(Mensaje.get(), mensajeObtenido, 0, 1)
 
     Boton_listo = tk.Button(text ="Listo", command= Call_calculation)
     Boton_listo.place(x=15, y=230)
@@ -75,7 +74,7 @@ def desencriptar():
 
     def Call_calculation():
         mensajeObtenido, d = Calculos.desencriptado(Mensaje.get(), numE.get(), numN.get())
-        show_Results(Mensaje.get(), mensajeObtenido, d)
+        show_Results(Mensaje.get(), mensajeObtenido, d, 2)
 
     Boton_listo = tk.Button(text ="Listo", command= Call_calculation)
     Boton_listo.place(x=15, y=190)
@@ -83,13 +82,14 @@ def desencriptar():
     Boton_atras = tk.Button(text ="Regresar", command= main)
     Boton_atras.place(x=105, y=190)
 
-def show_Results(mensajeO, mensajeR, llave):
+def show_Results(mensajeO, mensajeR, llave, modo):
     clear_frame()
     tk.Label(Main_page, text = " \nResultado del proceso:", font="Times 20").pack()
     tk.Label(Main_page, text = " \nMensaje original: " + mensajeO, font="Times 18").pack()
     tk.Label(Main_page, text = " \nMensaje obtenido: " + str(mensajeR), font="Times 18").pack()
-    tk.Label(Main_page, text = " \nLlave privada: " + str(llave), font="Times 15").pack()
-    tk.Button(text ="Menu inicial", command= main).pack()
+    if modo == 2:
+        tk.Label(Main_page, text = " \nLlave privada: " + str(llave), font="Times 15").pack()
+    tk.Button(text ="Menu inicial", command= main).place(x=105, y=290)
 
 Main_page = tk.Tk()
 Main_page.geometry("550x450")
